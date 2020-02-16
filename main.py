@@ -1,7 +1,4 @@
-
-# We can export a function "Parse" that takes a string.
-# Parse takes the string, validates that it's JSON, and then falls
-# Feed.parse() on it.
+import json
 
 class ParseError(Exception):
     pass
@@ -67,7 +64,27 @@ class Feed:
         return parsed
 
     def toJSON(self):
-        return "feed string here"
+        return json.dumps(self._toOrderedDict())
+
+    def _toOrderedDict(self):
+        ordered = {
+            'version': self.version,
+            'title': self.title,
+            'expired': self.expired
+        }
+        if self.home_page_url: ordered['home_page_url'] = self.home_page_url
+        if self.feed_url: ordered['feed_url'] = self.feed_url
+        if self.description: ordered['description'] = self.description
+        if self.user_comment: ordered['user_comment'] = self.user_comment
+        if self.next_url: ordered['next_url'] = self.next_url
+        if self.icon: ordered['icon'] = self['icon']
+        if self.favicon: ordered['favicon'] = self['favicon']
+        if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.hubs:
+            ordered['hubs'] = [h._toOrderedDict() for h in self.hubs]
+        if self.items:
+            ordered['items'] = [i._toOrderedDict() for i in self.items]
+        return ordered
 
 class Author:
     def __init__(self, name=None, url=None, avatar=None):
@@ -83,8 +100,12 @@ class Author:
             avatar=maybeAuthor.get('avatar')
         )
 
-    def toJSON(self):
-        return "author string here"
+    def _toOrderedDict(self):
+        ordered = {}
+        if self.name: ordered['name'] = self.name
+        if self.url: ordered['url'] = self.url
+        if self.avatar: ordered['avatar'] = self.avatar
+        return ordered
 
 class Hub:
     def __init__(self, type, url):
@@ -99,8 +120,11 @@ class Hub:
             raise MissingRequiredValueError("Hub", "url")
         return Hub(maybeHub['type'], maybeHub['url'])
 
-    def toJSON(self):
-        return "hub string here"
+    def _toOrderedDict(self):
+        return { 'type': self.type, 'url': self.url }
+
+# TODO: validate that dates are in RFC 3339 format OR a datetime that can be
+# represented in RFC 3339.
 
 class Item:
     def __init__(
@@ -114,7 +138,7 @@ class Item:
         summary=None,
         image=None,
         banner_image=None,
-        date_published=None, # Must be RFC 3339
+        date_published=None,
         date_modified=None,
         author=None,
         tags=[],
@@ -157,8 +181,23 @@ class Item:
             parsed.attachments = [Attachment.parse(a) for a in maybeItem['Attachments']]
         return parsed
 
-    def toJSON(self):
-        return "item string here"
+    def _toOrderedDict(self):
+        ordered = { 'id': self.id }
+        if self.url: ordered['url'] = self.url
+        if self.external_url: ordered['external_url'] = self.url
+        if self.title: ordered['title'] = self.title
+        if self.content_html: ordered['content_html'] = self.content_html
+        if self.content_text: ordered['content_text'] = self.content_text
+        if self.summary: ordered['summary'] = self.summary
+        if self.image: ordered['image'] = self.image
+        if self.banner_image: ordered['banner_image'] = self.banner_image
+        if self.date_published: ordered['date_published'] = self.date_published
+        if self.date_modified: ordered['date_modified'] = self.date_modified
+        if self.tags: ordered['tags'] = self.tags
+        if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.attachments:
+            ordered['attachments'] = [a._toOrderedDict() for a in self.attachments]
+        return ordered
 
 class Attachment:
     def __init__(
@@ -187,5 +226,10 @@ class Attachment:
         parsed.duration_in_seconds = maybeAttachment.get('duration_in_seconds')
         return parsed
 
-    def toJSON(self):
-        return "Attachment string here"
+    def _toOrderedDict(self):
+        ordered = { 'url': self.url, 'mime_type': self.mime_type }
+        if self.title: ordered['title'] = self.title
+        if self.size_in_bytes: ordered['size_in_bytes'] = self.size_in_bytes
+        if self.duration_in_seconds:
+            ordered['duration_in_seconds'] = self.duration_in_seconds
+        return ordered
