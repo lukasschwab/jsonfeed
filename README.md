@@ -6,6 +6,14 @@
 
 This package's constructor arguments and class variables exactly match the field names defined in the JSON schema spec. I hope that the code is clear enough that the spec can be its granular documentation.
 
+### Installation
+
+In this directory, run:
+
+```shell
+$ pip install .
+```
+
 ### Parsing a JSON feed
 
 ```python
