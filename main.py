@@ -3,10 +3,10 @@
 # Parse takes the string, validates that it's JSON, and then falls
 # Feed.parse() on it.
 
-class JSONFeedError(Exception):
+class ParseError(Exception):
     pass
 
-class MissingRequiredValueError(JSONFeedError):
+class MissingRequiredValueError(ParseError):
     def __init__(self, structure, key):
         self.structure = structure
         self.key = key
@@ -23,9 +23,9 @@ class Feed:
         next_url=None,
         icon=None,
         favicon=None,
-        author=None
+        author=None,
         expired=False,
-        hub=[],
+        hubs=[],
         items=[]
     ):
         assert title
