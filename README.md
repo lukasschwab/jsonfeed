@@ -47,4 +47,6 @@ Note, `jsonfeed` is designed to be minimally restrictive. It does not require fi
   - [ ] Unit tests.
   - [ ] Distribution on `PyPI`.
 
++ Dictionaries maintain insertion order as of Python 3.6. `jsonfeed` takes advantage of this to retain the order suggested in the JSON Feed spec (namely, that `version` appear at the top of the JSON object). This order may not be enforced in earlier versions of Python, but out-of-order JSON Feeds are not invalid.
+
 + I made a conscious decision to shoot for code that's readable––vis à vis the JSON Feed spec––rather than code that's minimal or performant. Additionally, I opted to avoid dependencies outside of the standard library. Hopefully this makes for easy maintenance.
