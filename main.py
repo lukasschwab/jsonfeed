@@ -8,6 +8,10 @@ class MissingRequiredValueError(ParseError):
         self.structure = structure
         self.key = key
 
+def parse(maybeFeedString):
+    maybeFeed = json.loads(maybeFeedString)
+    return Feed.parse(maybeFeed)
+
 class Feed:
     version = "https://jsonfeed.org/version/1"
     def __init__(
@@ -178,7 +182,7 @@ class Item:
         if 'author' in maybeItem and maybeItem['author']:
             parsed.author = Author.parse(maybeItem['author'])
         if 'attachments' in maybeItem and maybeItem['attachments']:
-            parsed.attachments = [Attachment.parse(a) for a in maybeItem['Attachments']]
+            parsed.attachments = [Attachment.parse(a) for a in maybeItem['attachments']]
         return parsed
 
     def _toOrderedDict(self):
