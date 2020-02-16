@@ -133,6 +133,29 @@ class Item:
         self.date_modified = date_modified
         self.author = author
         self.tags = tags
+        self.attachments = attachments
+
+    @staticmethod
+    def parse(maybeItem):
+        if 'id' not in maybeItem or not maybeItem['id']:
+            raise MissingRequiredValueError("Item", "id")
+        parsed = Item(maybeItem['id'])
+        parsed.url = maybeItem.get('url')
+        parsed.external_url = maybeItem.get('external_url')
+        parsed.title = maybeItem.get('title')
+        parsed.content_html = maybeItem.get('content_html')
+        parsed.content_text = maybeItem.get('content_text')
+        parsed.summary = maybeItem.get('summary')
+        parsed.image = maybeItem.get('image')
+        parsed.banner_image = maybeItem.get('banner_image')
+        parsed.date_published = maybeItem.get('date_published')
+        parsed.date_modified = maybeItem.get('date_modified')
+        parsed.tags = maybeItem.get('tags', [])
+        if 'author' in maybeItem and maybeItem['author']:
+            parsed.author = Author.parse(maybeItem['author'])
+        if 'attachments' in maybeItem and maybeItem['attachments']:
+            parsed.attachments = [Attachment.parse(a) for a in maybeItem['Attachments']]
+        return parsed
 
     def toJSON(self):
         return "item string here"
@@ -151,6 +174,18 @@ class Attachment:
         self.title = title
         self.size_in_bytes = size_in_bytes
         self.duration_in_seconds = duration_in_seconds
+
+    @staticmethod
+    def parse(maybeAttachment):
+        if 'url' not in maybeAttachment or not maybeAttachment['url']:
+            raise MissingRequiredValueError("Attachment", "url")
+        if 'mime_type' not in maybeAttachment or not maybeAttachment['mime_type']:
+            raise MissingRequiredValueError("Attachment", "mime_type")
+        parsed = Attachment(maybeAttachment['url'], maybeAttachment['mime_type'])
+        parsed.title = maybeAttachment.get('title')
+        parsed.size_in_bytes = maybeAttachment.get('size_in_bytes'),
+        parsed.duration_in_seconds = maybeAttachment.get('duration_in_seconds')
+        return parsed
 
     def toJSON(self):
         return "Attachment string here"
