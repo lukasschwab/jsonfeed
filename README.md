@@ -45,7 +45,21 @@ feed.items.append(item)
 print(feed.toJSON())
 ```
 
+`jsonfeed` exposes constructors for five classes of JSON feed objects:
+
++ `Feed`
++ `Author`
++ `Hub`
++ `Item`
++ `Attachment`
+
 Note, `jsonfeed` is designed to be minimally restrictive. It does not require fields that are not required in the JSON Feed spec. This means it's possible to construct nonmeaningful JSON feeds (e.g. with this valid `Author` object: `{}`).
+
+### Examples
+
++ [`arxiv-feeds`](https://github.com/lukasschwab/arxiv-feeds)
++ [`atlas-feed`](https://github.com/lukasschwab/atlas-feed)
++ [`pandoc-blog`](https://github.com/lukasschwab/pandoc-blog)
 
 ## Notes
 
