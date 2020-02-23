@@ -81,8 +81,8 @@ class Feed:
         if self.description: ordered['description'] = self.description
         if self.user_comment: ordered['user_comment'] = self.user_comment
         if self.next_url: ordered['next_url'] = self.next_url
-        if self.icon: ordered['icon'] = self['icon']
-        if self.favicon: ordered['favicon'] = self['favicon']
+        if self.icon: ordered['icon'] = self.icon
+        if self.favicon: ordered['favicon'] = self.favicon
         if self.author: ordered['author'] = self.author._toOrderedDict()
         if self.hubs:
             ordered['hubs'] = [h._toOrderedDict() for h in self.hubs]
