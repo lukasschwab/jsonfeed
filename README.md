@@ -4,7 +4,7 @@
 
 ## Usage
 
-This package's constructor arguments and class variables exactly match the field names defined in the JSON schema spec. I hope that the code is clear enough that the spec can be its granular documentation.
+This package's constructor arguments and class variables exactly match the field names defined in the JSON feed spec. I hope that the code is clear enough that the spec can be its granular documentation.
 
 ### Installation
 
@@ -20,7 +20,7 @@ $ pip install .
 import jsonfeed as jf
 import requests
 
-# Requesting a valid JSON schema!
+# Requesting a valid JSON feed!
 r = requests.get('https://arxiv-feeds.appspot.com/json/test')
 # Parse from raw text...
 feed_from_text = jf.parse(r.text)
