@@ -1,6 +1,6 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-version = "0.0.2"
+version = "0.0.3"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 setup(
     name="jsonfeed",
     version=version,
-    packages=["jsonfeed"],
+    packages=find_packages(),
     # metadata for upload to PyPI
     author="Lukas Schwab",
     author_email="lukas.schwab@gmail.com",
