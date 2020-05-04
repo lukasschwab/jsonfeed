@@ -58,7 +58,7 @@ Note, `jsonfeed` is designed to be minimally restrictive. It does not require fi
 ### Examples
 
 + [`arxiv-feeds`](https://github.com/lukasschwab/arxiv-feeds)
-+ [`atlas-feed`](https://github.com/lukasschwab/atlas-feed)
++ [`jsonfeed-wrapper`](https://github.com/lukasschwab/jsonfeed-wrapper)
 + [`pandoc-blog`](https://github.com/lukasschwab/pandoc-blog)
 
 ## Notes
