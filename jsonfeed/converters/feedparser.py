@@ -29,11 +29,14 @@ def from_feedparser_obj(feedparser_obj):
         description=feedparser_obj.feed.info if "info" in feedparser_obj.feed else None,
         icon=feedparser_obj.feed.image.link if "image" in feedparser_obj.feed else None,
         favicon=feedparser_obj.feed.icon if "icon" in feedparser_obj.feed else None,
+        language=feedparser_obj.feed.language if "language" in feedparser_obj.feed else None,
         author=author,
+        authors=[author] if author else None,
         items=items
     )
 
 def from_feedparser_entry(entry):
+    author = Author(name=entry.author) if "author" in entry else None
     return Item(
         id=entry.id if "id" in entry else None,
         url=entry.link if "link" in entry else None,
@@ -44,7 +47,8 @@ def from_feedparser_entry(entry):
         summary=entry.summary if "summary" in entry else None,
         date_published=entry.published if "published" in entry else None,
         date_modified=entry.updated if "updated" in entry else None,
-        author=Author(name=entry.author) if "author" in entry else None,
+        author=author,
+        authors=[author] if author else None,
         tags=[t.term for t in entry.tags] if "tags" in entry else None,
     )
 

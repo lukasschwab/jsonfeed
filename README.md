@@ -38,7 +38,7 @@ me = jf.Author(
   name="Lukas Schwab",
   url="https://github.com/lukasschwab"
 )
-feed = jf.Feed("My Feed Title", author=me)
+feed = jf.Feed("My Feed Title", authors=[me])
 item = jf.Item("some_item_id")
 feed.items.append(item)
 
@@ -57,9 +57,18 @@ Note, `jsonfeed` is designed to be minimally restrictive. It does not require fi
 
 ### Examples
 
-+ [`arxiv-feeds`](https://github.com/lukasschwab/arxiv-feeds)
-+ [`jsonfeed-wrapper`](https://github.com/lukasschwab/jsonfeed-wrapper)
-+ [`pandoc-blog`](https://github.com/lukasschwab/pandoc-blog)
++ [`arxiv-feeds`](https://github.com/lukasschwab/arxiv-feeds): converts Atom to JSON feeds.
++ [`jsonfeed-wrapper`](https://github.com/lukasschwab/jsonfeed-wrapper): converts scraped HTML to JSON feeds.
++ [`pandoc-blog`](https://github.com/lukasschwab/pandoc-blog): generates a JSON feed for a static site.
+
+## Deprecations
+
+See [the spec](https://jsonfeed.org/) for an overview of deprecated JSON Feed fields. This project (especially the `converters` and the parsing functions) will stay backwards-compatible when possible, but using deprecated fields when constructing feeds is discouraged.
+
+### JSON Feed 1.1
+
++ `Feed.author` is deprecated. Use `Feed.authors`.
++ `Item.author` is deprecated. Use `Item.authors`.
 
 ## Notes
 

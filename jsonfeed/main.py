@@ -24,8 +24,10 @@ class Feed:
         next_url=None,
         icon=None,
         favicon=None,
-        author=None,
+        author=None, # 1.1 deprecated; use authors.
+        authors=None,
         expired=False,
+        language=None,
         hubs=[],
         items=[]
     ):
@@ -39,7 +41,9 @@ class Feed:
         self.icon = icon
         self.favicon = favicon
         self.author = author
+        self.authors = authors
         self.expired = expired
+        self.language = language
         self.hubs = hubs
         self.items = items
 
@@ -58,9 +62,12 @@ class Feed:
         parsed.icon = maybeFeed.get('icon')
         parsed.favicon = maybeFeed.get('favicon')
         parsed.expired = maybeFeed.get('expired', False)
+        parsed.language = maybeFeed.get('language')
         # Structures requiring additional parsing.
         if 'author' in maybeFeed:
             parsed.author = Author.parse(maybeFeed['author'])
+        if 'authors' in maybeFeed:
+            parsed.authors = [Author.parse(a) for a in maybeFeed['authors']]
         if 'hubs' in maybeFeed:
             parsed.hubs = [Hub.parse(h) for h in maybeFeed['hubs']]
         if 'items' in maybeFeed:
@@ -84,6 +91,8 @@ class Feed:
         if self.icon: ordered['icon'] = self.icon
         if self.favicon: ordered['favicon'] = self.favicon
         if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.authors:
+            ordered['authors'] = [a._toOrderedDict() for a in self.authors]
         if self.hubs:
             ordered['hubs'] = [h._toOrderedDict() for h in self.hubs]
         if self.items:
@@ -145,6 +154,7 @@ class Item:
         date_published=None,
         date_modified=None,
         author=None,
+        authors=None,
         tags=[],
         attachments=[]
     ):
@@ -160,6 +170,7 @@ class Item:
         self.date_published = date_published
         self.date_modified = date_modified
         self.author = author
+        self.authors = authors
         self.tags = tags
         self.attachments = attachments
 
@@ -179,6 +190,8 @@ class Item:
         parsed.date_published = maybeItem.get('date_published')
         parsed.date_modified = maybeItem.get('date_modified')
         parsed.tags = maybeItem.get('tags', [])
+        if 'authors' in maybeFeed:
+            parsed.authors = [Author.parse(a) for a in maybeFeed['authors']]
         if 'author' in maybeItem and maybeItem['author']:
             parsed.author = Author.parse(maybeItem['author'])
         if 'attachments' in maybeItem and maybeItem['attachments']:
