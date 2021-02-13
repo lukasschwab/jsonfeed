@@ -74,8 +74,8 @@ class Feed:
             parsed.items = [Item.parse(i) for i in maybeFeed['items']]
         return parsed
 
-    def toJSON(self):
-        return json.dumps(self._toOrderedDict())
+    def toJSON(self, **kwargs):
+        return json.dumps(self._toOrderedDict(), **kwargs)
 
     def _toOrderedDict(self):
         ordered = {
