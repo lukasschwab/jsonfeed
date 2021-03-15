@@ -50,6 +50,16 @@ def from_feedparser_entry(entry):
         author=author,
         authors=[author] if author else None,
         tags=[t.term for t in entry.tags] if "tags" in entry else None,
+        attachments=[from_feedparser_link(l) for l in entry.links] if "links" in entry else None,
+    )
+
+def from_feedparser_link(link):
+    return Attachment(
+        link.href,
+        link.type,
+        None,
+        link.length,
+        None
     )
 
 # A helper for pulling a content body with a specific format out of a feedparser
