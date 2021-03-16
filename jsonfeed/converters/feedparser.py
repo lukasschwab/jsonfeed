@@ -54,11 +54,12 @@ def from_feedparser_entry(entry):
     )
 
 def from_feedparser_link(link):
+    # TODO: extract the standard fieldnames.
     return Attachment(
         link.href,
         link.type,
         None,
-        link.length,
+        link.length if "length" in link else None,
         None
     )
 
