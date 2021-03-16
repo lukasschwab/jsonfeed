@@ -212,6 +212,8 @@ class Item:
         if self.date_modified: ordered['date_modified'] = self.date_modified
         if self.tags: ordered['tags'] = self.tags
         if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.authors:
+            ordered['authors'] = [a._toOrderedDict() for a in self.authors]
         if self.attachments:
             ordered['attachments'] = [a._toOrderedDict() for a in self.attachments]
         return ordered
