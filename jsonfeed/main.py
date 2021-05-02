@@ -13,7 +13,7 @@ def parse(maybeFeedString):
     return Feed.parse(maybeFeed)
 
 class Feed:
-    version = "https://jsonfeed.org/version/1"
+    version = "https://jsonfeed.org/version/1.1"
     def __init__(
         self,
         title,

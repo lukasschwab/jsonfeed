@@ -1,6 +1,6 @@
 # jsonfeed [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
-`jsonfeed` is a Python package for parsing and constructing [JSON Feeds](https://jsonfeed.org/version/1). It explicitly supports JSON Feed Version 1.
+`jsonfeed` is a Python package for parsing and constructing [JSON Feeds](https://jsonfeed.org/version/1.1). It explicitly supports JSON Feed Version 1.1.
 
 ## Usage
 
