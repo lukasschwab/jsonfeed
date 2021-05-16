@@ -14,10 +14,10 @@ from jsonfeed import *
 #
 # Filter example:
 #
-#    obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
-#    feed = from_feedparser_obj(obj)
-#    feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
-#    feed.toJSON()
+#   obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
+#   feed = from_feedparser_obj(obj)
+#   feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
+#   feed.toJSON()
 
 def from_feedparser_obj(feedparser_obj):
     author = Author(
