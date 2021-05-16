@@ -1,14 +1,15 @@
 import json
+from typing import List
 
 class ParseError(Exception):
     pass
 
 class MissingRequiredValueError(ParseError):
-    def __init__(self, structure, key):
+    def __init__(self, structure: str, key: str):
         self.structure = structure
         self.key = key
 
-def parse(maybeFeedString):
+def parse(maybeFeedString: str) -> 'Feed':
     maybeFeed = json.loads(maybeFeedString)
     return Feed.parse(maybeFeed)
 
@@ -16,20 +17,20 @@ class Feed:
     version = "https://jsonfeed.org/version/1.1"
     def __init__(
         self,
-        title,
-        home_page_url=None,
-        feed_url=None,
-        description=None,
-        user_comment=None,
-        next_url=None,
-        icon=None,
-        favicon=None,
+        title: str,
+        home_page_url: str = None,
+        feed_url: str = None,
+        description: str = None,
+        user_comment: str = None,
+        next_url: str = None,
+        icon: str = None,
+        favicon: str = None,
         author=None, # 1.1 deprecated; use authors.
-        authors=None,
-        expired=False,
-        language=None,
-        hubs=[],
-        items=[]
+        authors: List['Author'] = None,
+        expired: bool = False,
+        language: str = None,
+        hubs: List['Hub'] = [],
+        items: List['Item'] = []
     ):
         assert title
         self.title = title
@@ -48,7 +49,7 @@ class Feed:
         self.items = items
 
     @staticmethod
-    def parse(maybeFeed):
+    def parse(maybeFeed: dict) -> 'Feed':
         if 'title' not in maybeFeed or not maybeFeed['title']:
             raise MissingRequiredValueError("Feed", "title")
         # The only required field exists.
@@ -74,10 +75,10 @@ class Feed:
             parsed.items = [Item.parse(i) for i in maybeFeed['items']]
         return parsed
 
-    def toJSON(self, **kwargs):
+    def toJSON(self, **kwargs) -> str:
         return json.dumps(self._toOrderedDict(), **kwargs)
 
-    def _toOrderedDict(self):
+    def _toOrderedDict(self) -> dict:
         ordered = {
             'version': self.version,
             'title': self.title,
@@ -99,41 +100,43 @@ class Feed:
             ordered['items'] = [i._toOrderedDict() for i in self.items]
         return ordered
 
+
 class Author:
-    def __init__(self, name=None, url=None, avatar=None):
+    def __init__(self, name: str = None, url: str = None, avatar: str = None):
         self.name = name
         self.url = url
         self.avatar = avatar
 
     @staticmethod
-    def parse(maybeAuthor):
+    def parse(maybeAuthor: dict) -> 'Author':
         return Author(
             name=maybeAuthor.get('name'),
             url=maybeAuthor.get('url'),
             avatar=maybeAuthor.get('avatar')
         )
 
-    def _toOrderedDict(self):
+    def _toOrderedDict(self) -> dict:
         ordered = {}
         if self.name: ordered['name'] = self.name
         if self.url: ordered['url'] = self.url
         if self.avatar: ordered['avatar'] = self.avatar
         return ordered
 
+
 class Hub:
-    def __init__(self, type, url):
+    def __init__(self, type: str, url: str):
         self.type = type
         self.url = url
 
     @staticmethod
-    def parse(maybeHub):
+    def parse(maybeHub: dict) -> 'Hub':
         if 'type' not in maybeHub or not maybeHub['type']:
             raise MissingRequiredValueError("Hub", "type")
         if 'url' not in maybeHub or not maybeHub['url']:
             raise MissingRequiredValueError("Hub", "url")
         return Hub(maybeHub['type'], maybeHub['url'])
 
-    def _toOrderedDict(self):
+    def _toOrderedDict(self) -> dict:
         return { 'type': self.type, 'url': self.url }
 
 # TODO: validate that dates are in RFC 3339 format OR a datetime that can be
@@ -143,20 +146,20 @@ class Item:
     def __init__(
         self,
         id,
-        url=None,
-        external_url=None,
-        title=None,
-        content_html=None,
-        content_text=None,
-        summary=None,
-        image=None,
-        banner_image=None,
-        date_published=None,
-        date_modified=None,
-        author=None,
-        authors=None,
-        tags=[],
-        attachments=[]
+        url: str = None,
+        external_url: str = None,
+        title: str = None,
+        content_html: str = None,
+        content_text: str = None,
+        summary: str = None,
+        image: str = None,
+        banner_image: str = None,
+        date_published: str = None,
+        date_modified: str = None,
+        author = None, # 1.1 deprecated; use authors.
+        authors: List[Author] = None,
+        tags: List[str] = [],
+        attachments: List['Attachment'] = []
     ):
         self.id = id
         self.url = url
@@ -175,7 +178,7 @@ class Item:
         self.attachments = attachments
 
     @staticmethod
-    def parse(maybeItem):
+    def parse(maybeItem: dict) -> 'Item':
         if 'id' not in maybeItem or not maybeItem['id']:
             raise MissingRequiredValueError("Item", "id")
         parsed = Item(maybeItem['id'])
@@ -190,15 +193,15 @@ class Item:
         parsed.date_published = maybeItem.get('date_published')
         parsed.date_modified = maybeItem.get('date_modified')
         parsed.tags = maybeItem.get('tags', [])
-        if 'authors' in maybeFeed:
-            parsed.authors = [Author.parse(a) for a in maybeFeed['authors']]
+        if 'authors' in maybeItem:
+            parsed.authors = [Author.parse(a) for a in maybeItem['authors']]
         if 'author' in maybeItem and maybeItem['author']:
             parsed.author = Author.parse(maybeItem['author'])
         if 'attachments' in maybeItem and maybeItem['attachments']:
             parsed.attachments = [Attachment.parse(a) for a in maybeItem['attachments']]
         return parsed
 
-    def _toOrderedDict(self):
+    def _toOrderedDict(self) -> dict:
         ordered = { 'id': self.id }
         if self.url: ordered['url'] = self.url
         if self.external_url: ordered['external_url'] = self.url
@@ -221,11 +224,11 @@ class Item:
 class Attachment:
     def __init__(
         self,
-        url,
-        mime_type,
-        title=None,
-        size_in_bytes=None,
-        duration_in_seconds=None
+        url: str,
+        mime_type: str,
+        title: str = None,
+        size_in_bytes: int = None,
+        duration_in_seconds: int = None
     ):
         self.url = url
         self.mime_type = mime_type
@@ -234,7 +237,7 @@ class Attachment:
         self.duration_in_seconds = duration_in_seconds
 
     @staticmethod
-    def parse(maybeAttachment):
+    def parse(maybeAttachment: dict) -> 'Attachment':
         if 'url' not in maybeAttachment or not maybeAttachment['url']:
             raise MissingRequiredValueError("Attachment", "url")
         if 'mime_type' not in maybeAttachment or not maybeAttachment['mime_type']:
@@ -245,7 +248,7 @@ class Attachment:
         parsed.duration_in_seconds = maybeAttachment.get('duration_in_seconds')
         return parsed
 
-    def _toOrderedDict(self):
+    def _toOrderedDict(self) -> dict:
         ordered = { 'url': self.url, 'mime_type': self.mime_type }
         if self.title: ordered['title'] = self.title
         if self.size_in_bytes: ordered['size_in_bytes'] = self.size_in_bytes
