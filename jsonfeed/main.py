@@ -1,20 +1,25 @@
 import json
 from typing import List
 
+
 class ParseError(Exception):
     pass
+
 
 class MissingRequiredValueError(ParseError):
     def __init__(self, structure: str, key: str):
         self.structure = structure
         self.key = key
 
+
 def parse(maybeFeedString: str) -> 'Feed':
     maybeFeed = json.loads(maybeFeedString)
     return Feed.parse(maybeFeed)
 
+
 class Feed:
     version = "https://jsonfeed.org/version/1.1"
+
     def __init__(
         self,
         title: str,
@@ -25,7 +30,7 @@ class Feed:
         next_url: str = None,
         icon: str = None,
         favicon: str = None,
-        author=None, # 1.1 deprecated; use authors.
+        author=None,  # 1.1 deprecated; use authors.
         authors: List['Author'] = None,
         expired: bool = False,
         language: str = None,
@@ -137,11 +142,11 @@ class Hub:
         return Hub(maybeHub['type'], maybeHub['url'])
 
     def _toOrderedDict(self) -> dict:
-        return { 'type': self.type, 'url': self.url }
+        return {'type': self.type, 'url': self.url}
+
 
 # TODO: validate that dates are in RFC 3339 format OR a datetime that can be
 # represented in RFC 3339.
-
 class Item:
     def __init__(
         self,
@@ -202,7 +207,7 @@ class Item:
         return parsed
 
     def _toOrderedDict(self) -> dict:
-        ordered = { 'id': self.id }
+        ordered = {'id': self.id}
         if self.url: ordered['url'] = self.url
         if self.external_url: ordered['external_url'] = self.url
         if self.title: ordered['title'] = self.title
@@ -249,7 +254,7 @@ class Attachment:
         return parsed
 
     def _toOrderedDict(self) -> dict:
-        ordered = { 'url': self.url, 'mime_type': self.mime_type }
+        ordered = {'url': self.url, 'mime_type': self.mime_type}
         if self.title: ordered['title'] = self.title
         if self.size_in_bytes: ordered['size_in_bytes'] = self.size_in_bytes
         if self.duration_in_seconds:
