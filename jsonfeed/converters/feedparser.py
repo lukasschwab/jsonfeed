@@ -27,7 +27,7 @@ def from_feedparser_obj(feedparser_obj):
     return Feed(
         title=feedparser_obj.feed.title if "title" in feedparser_obj.feed else None,
         description=feedparser_obj.feed.info if "info" in feedparser_obj.feed else None,
-        icon=feedparser_obj.feed.image.link if "image" in feedparser_obj.feed else None,
+        icon=feedparser_obj.feed.image.href if "image" in feedparser_obj.feed else None,
         favicon=feedparser_obj.feed.icon if "icon" in feedparser_obj.feed else None,
         language=feedparser_obj.feed.language if "language" in feedparser_obj.feed else None,
         author=author,
