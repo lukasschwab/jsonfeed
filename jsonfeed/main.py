@@ -101,8 +101,7 @@ class Feed:
             ordered['authors'] = [a._toOrderedDict() for a in self.authors]
         if self.hubs:
             ordered['hubs'] = [h._toOrderedDict() for h in self.hubs]
-        if self.items:
-            ordered['items'] = [i._toOrderedDict() for i in self.items]
+        ordered['items'] = [i._toOrderedDict() for i in self.items]
         return ordered
 
 
