@@ -80,10 +80,10 @@ class Feed:
     def parse_string(maybeFeed: str) -> 'Feed':
         return Feed.parse(json.loads(maybeFeed))
 
-    def toJSON(self, **kwargs) -> str:
-        return json.dumps(self._toOrderedDict(), **kwargs)
+    def to_json(self, **kwargs) -> str:
+        return json.dumps(self._to_ordered_dict(), **kwargs)
 
-    def _toOrderedDict(self) -> dict:
+    def _to_ordered_dict(self) -> dict:
         ordered = {
             'version': self.version,
             'title': self.title,
@@ -96,12 +96,12 @@ class Feed:
         if self.next_url: ordered['next_url'] = self.next_url
         if self.icon: ordered['icon'] = self.icon
         if self.favicon: ordered['favicon'] = self.favicon
-        if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.author: ordered['author'] = self.author._to_ordered_dict()
         if self.authors:
-            ordered['authors'] = [a._toOrderedDict() for a in self.authors]
+            ordered['authors'] = [a._to_ordered_dict() for a in self.authors]
         if self.hubs:
-            ordered['hubs'] = [h._toOrderedDict() for h in self.hubs]
-        ordered['items'] = [i._toOrderedDict() for i in self.items]
+            ordered['hubs'] = [h._to_ordered_dict() for h in self.hubs]
+        ordered['items'] = [i._to_ordered_dict() for i in self.items]
         return ordered
 
 
@@ -119,7 +119,7 @@ class Author:
             avatar=maybeAuthor.get('avatar')
         )
 
-    def _toOrderedDict(self) -> dict:
+    def _to_ordered_dict(self) -> dict:
         ordered = {}
         if self.name: ordered['name'] = self.name
         if self.url: ordered['url'] = self.url
@@ -140,7 +140,7 @@ class Hub:
             raise MissingRequiredValueError("Hub", "url")
         return Hub(maybeHub['type'], maybeHub['url'])
 
-    def _toOrderedDict(self) -> dict:
+    def _to_ordered_dict(self) -> dict:
         return {'type': self.type, 'url': self.url}
 
 
@@ -205,7 +205,7 @@ class Item:
             parsed.attachments = [Attachment.parse(a) for a in maybeItem['attachments']]
         return parsed
 
-    def _toOrderedDict(self) -> dict:
+    def _to_ordered_dict(self) -> dict:
         ordered = {'id': self.id}
         if self.url: ordered['url'] = self.url
         if self.external_url: ordered['external_url'] = self.url
@@ -218,11 +218,11 @@ class Item:
         if self.date_published: ordered['date_published'] = self.date_published
         if self.date_modified: ordered['date_modified'] = self.date_modified
         if self.tags: ordered['tags'] = self.tags
-        if self.author: ordered['author'] = self.author._toOrderedDict()
+        if self.author: ordered['author'] = self.author._to_ordered_dict()
         if self.authors:
-            ordered['authors'] = [a._toOrderedDict() for a in self.authors]
+            ordered['authors'] = [a._to_ordered_dict() for a in self.authors]
         if self.attachments:
-            ordered['attachments'] = [a._toOrderedDict() for a in self.attachments]
+            ordered['attachments'] = [a._to_ordered_dict() for a in self.attachments]
         return ordered
 
 
@@ -253,7 +253,7 @@ class Attachment:
         parsed.duration_in_seconds = maybeAttachment.get('duration_in_seconds')
         return parsed
 
-    def _toOrderedDict(self) -> dict:
+    def _to_ordered_dict(self) -> dict:
         ordered = {'url': self.url, 'mime_type': self.mime_type}
         if self.title: ordered['title'] = self.title
         if self.size_in_bytes: ordered['size_in_bytes'] = self.size_in_bytes
