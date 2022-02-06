@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 version = "1.0.0"
 
@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 setup(
     name="jsonfeed",
     version=version,
-    packages=find_packages(),
+    py_modules=['jsonfeed', 'jsonfeed.converters.feedparser'],
     # metadata for upload to PyPI
     author="Lukas Schwab",
     author_email="lukas.schwab@gmail.com",
