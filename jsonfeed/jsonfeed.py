@@ -104,6 +104,12 @@ class Feed:
         ordered['items'] = [i._to_ordered_dict() for i in self.items]
         return ordered
 
+    def __str__(self) -> str:
+        return self.to_json()
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
 
 class Author:
     def __init__(self, name: str = None, url: str = None, avatar: str = None):
@@ -126,6 +132,12 @@ class Author:
         if self.avatar: ordered['avatar'] = self.avatar
         return ordered
 
+    def __str__(self) -> str:
+        return json.dumps(self._to_ordered_dict())
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
 
 class Hub:
     def __init__(self, type: str, url: str):
@@ -142,6 +154,12 @@ class Hub:
 
     def _to_ordered_dict(self) -> dict:
         return {'type': self.type, 'url': self.url}
+
+    def __str__(self) -> str:
+        return json.dumps(self._to_ordered_dict())
+
+    def __repr__(self) -> str:
+        return self.__str__()
 
 
 # TODO: validate that dates are in RFC 3339 format OR a datetime that can be
@@ -225,6 +243,12 @@ class Item:
             ordered['attachments'] = [a._to_ordered_dict() for a in self.attachments]
         return ordered
 
+    def __str__(self) -> str:
+        return json.dumps(self._to_ordered_dict())
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
 
 class Attachment:
     def __init__(
@@ -260,3 +284,9 @@ class Attachment:
         if self.duration_in_seconds:
             ordered['duration_in_seconds'] = self.duration_in_seconds
         return ordered
+
+    def __str__(self) -> str:
+        return json.dumps(self._to_ordered_dict())
+
+    def __repr__(self) -> str:
+        return self.__str__()

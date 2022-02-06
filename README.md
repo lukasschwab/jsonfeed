@@ -75,7 +75,6 @@ See [the spec](https://jsonfeed.org/) for an overview of deprecated JSON Feed fi
 + There are known areas for improvement. Please feel empowered to open a PR!
   - [ ] Date format validation *or* construction from `datetime` objects.
   - [ ] Unit tests.
-  - [ ] `str` and `repr` implementations for REPL usage.
   - [ ] Docs generation, linting, and auditing in CI (like for arxiv).
   - [ ] Add docstrings.
   - [ ] Find a better pattern than all these `if` constructs.
