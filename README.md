@@ -74,9 +74,9 @@ See [the spec](https://jsonfeed.org/) for an overview of deprecated JSON Feed fi
 
 + There are known areas for improvement. Please feel empowered to open a PR!
   - [ ] Date format validation *or* construction from `datetime` objects.
-  - [ ] Type annotations.
   - [ ] Unit tests.
-  - [ ] Distribution on `PyPI`.
+  - [ ] Generated documentation.
+  - [ ] `str` and `repr` implementations for REPL usage.
 
 + Dictionaries maintain insertion order as of Python 3.6. `jsonfeed` takes advantage of this to retain the order suggested in the JSON Feed spec (namely, that `version` appear at the top of the JSON object). This order may not be enforced in earlier versions of Python, but out-of-order JSON Feeds are not invalid.
 
