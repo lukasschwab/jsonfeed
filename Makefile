@@ -17,7 +17,7 @@ audit:
 docs: docs/index.html
 docs/index.html: $(source) README.md
 	rm -rf docs/*
-	pdoc --docformat "restructuredtext" jsonfeed jsonfeed.converters.feedparser -o docs
+	pdoc --docformat "restructuredtext" ./jsonfeed -o docs
 
 clean:
 	rm -rf build dist
