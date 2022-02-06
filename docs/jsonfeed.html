@@ -228,15 +228,6 @@ jsonfeed    </h1>
 <h2 id="notes">Notes</h2>
 
 <ul>
-<li><p>There are known areas for improvement. Please feel empowered to open a PR!</p>
-
-<ul>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Date format validation <em>or</em> construction from <code>datetime</code> objects.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Unit tests.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Docs generation, linting, and auditing in CI (like for arxiv).</li>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Add docstrings.</li>
-<li><input type="checkbox" class="task-list-item-checkbox" disabled> Find a better pattern than all these <code>if</code> constructs.</li>
-</ul></li>
 <li><p>Dictionaries maintain insertion order as of Python 3.6. <code><a href="">jsonfeed</a></code> takes advantage of this to retain the order suggested in the JSON Feed spec (namely, that <code>version</code> appear at the top of the JSON object). This order may not be enforced in earlier versions of Python, but out-of-order JSON Feeds are not invalid.</p></li>
 <li><p>I made a conscious decision to shoot for code that's readable––vis à vis the JSON Feed spec––rather than code that's minimal or performant. Additionally, I opted to avoid dependencies outside of the standard library. Hopefully this makes for easy maintenance.</p></li>
 </ul>

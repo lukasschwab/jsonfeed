@@ -72,13 +72,6 @@ See [the spec](https://jsonfeed.org/) for an overview of deprecated JSON Feed fi
 
 ## Notes
 
-+ There are known areas for improvement. Please feel empowered to open a PR!
-  - [ ] Date format validation *or* construction from `datetime` objects.
-  - [ ] Unit tests.
-  - [ ] Docs generation, linting, and auditing in CI (like for arxiv).
-  - [ ] Add docstrings.
-  - [ ] Find a better pattern than all these `if` constructs.
-
 + Dictionaries maintain insertion order as of Python 3.6. `jsonfeed` takes advantage of this to retain the order suggested in the JSON Feed spec (namely, that `version` appear at the top of the JSON object). This order may not be enforced in earlier versions of Python, but out-of-order JSON Feeds are not invalid.
 
 + I made a conscious decision to shoot for code that's readable––vis à vis the JSON Feed spec––rather than code that's minimal or performant. Additionally, I opted to avoid dependencies outside of the standard library. Hopefully this makes for easy maintenance.
