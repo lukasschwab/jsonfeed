@@ -16,10 +16,10 @@ audit:
 
 docs: docs/index.html
 docs/index.html: $(source) README.md
-	pdoc --docformat "restructuredtext" ./jsonfeed/main.py -o docs
-	mv docs/jsonfeed/main.html docs/index.html
-	rmdir docs/jsonfeed
-	rm docs/search.json
+	pdoc --docformat "restructuredtext" ./jsonfeed -o docs
+	# mv docs/jsonfeed/main.html docs/index.html
+	# rmdir docs/jsonfeed
+	# rm docs/search.json
 
 clean:
 	rm -rf build dist

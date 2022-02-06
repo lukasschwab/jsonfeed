@@ -13,11 +13,6 @@ class MissingRequiredValueError(ParseError):
         self.key = key
 
 
-def parse(maybeFeedString: str) -> 'Feed':
-    maybeFeed = json.loads(maybeFeedString)
-    return Feed.parse(maybeFeed)
-
-
 class Feed:
     version = "https://jsonfeed.org/version/1.1"
 
@@ -80,6 +75,10 @@ class Feed:
         if 'items' in maybeFeed:
             parsed.items = [Item.parse(i) for i in maybeFeed['items']]
         return parsed
+
+    @staticmethod
+    def parse_string(maybeFeed: str) -> 'Feed':
+        return Feed.parse(json.loads(maybeFeed))
 
     def toJSON(self, **kwargs) -> str:
         return json.dumps(self._toOrderedDict(), **kwargs)
@@ -161,7 +160,7 @@ class Item:
         banner_image: str = None,
         date_published: str = None,
         date_modified: str = None,
-        author = None, # 1.1 deprecated; use authors.
+        author=None,  # 1.1 deprecated; use authors.
         authors: List[Author] = None,
         tags: List[str] = [],
         attachments: List['Attachment'] = []
@@ -225,6 +224,7 @@ class Item:
         if self.attachments:
             ordered['attachments'] = [a._toOrderedDict() for a in self.attachments]
         return ordered
+
 
 class Attachment:
     def __init__(

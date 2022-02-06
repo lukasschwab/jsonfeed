@@ -1,4 +1,4 @@
-from jsonfeed import *
+from jsonfeed import Feed, Author, Item, Attachment
 
 # This file provides some bodge utils for converting feedparser-parsed ATOM or
 # RSS feeds into JSON feeds. It makes few guarantees about feed quality (for
@@ -19,6 +19,7 @@ from jsonfeed import *
 #   feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
 #   feed.toJSON()
 
+
 def from_feedparser_obj(feedparser_obj):
     author = Author(
         name=feedparser_obj.feed.author,
@@ -35,6 +36,7 @@ def from_feedparser_obj(feedparser_obj):
         items=items
     )
 
+
 def from_feedparser_entry(entry):
     author = Author(name=entry.author) if "author" in entry else None
     return Item(
@@ -50,8 +52,13 @@ def from_feedparser_entry(entry):
         author=author,
         authors=[author] if author else None,
         tags=[t.term for t in entry.tags] if "tags" in entry else None,
-        attachments=[from_feedparser_link(l) for l in entry.links] if "links" in entry else None,
+        attachments=from_feedparser_links(entry.links) if "links" in entry else None,
     )
+
+
+def from_feedparser_links(links):
+    return [from_feedparser_link(link) for link in links]
+
 
 def from_feedparser_link(link):
     # TODO: extract the standard fieldnames.
@@ -62,6 +69,7 @@ def from_feedparser_link(link):
         link.length if "length" in link else None,
         None
     )
+
 
 # A helper for pulling a content body with a specific format out of a feedparser
 # entry's array of contents.
