@@ -1,3 +1,4 @@
+from typing import List
 from jsonfeed import Feed, Author, Item, Attachment
 
 # This file provides some bodge utils for converting feedparser-parsed ATOM or
@@ -20,7 +21,7 @@ from jsonfeed import Feed, Author, Item, Attachment
 #   feed.toJSON()
 
 
-def from_feedparser_obj(feedparser_obj):
+def from_feedparser_obj(feedparser_obj) -> Feed:
     author = Author(
         name=feedparser_obj.feed.author,
     ) if "author" in feedparser_obj.feed else None
@@ -37,7 +38,7 @@ def from_feedparser_obj(feedparser_obj):
     )
 
 
-def from_feedparser_entry(entry):
+def from_feedparser_entry(entry) -> Item:
     author = Author(name=entry.author) if "author" in entry else None
     return Item(
         id=entry.id if "id" in entry else None,
@@ -56,11 +57,11 @@ def from_feedparser_entry(entry):
     )
 
 
-def from_feedparser_links(links):
+def from_feedparser_links(links) -> List[Attachment]:
     return [from_feedparser_link(link) for link in links]
 
 
-def from_feedparser_link(link):
+def from_feedparser_link(link) -> Attachment:
     # TODO: extract the standard fieldnames.
     return Attachment(
         link.href,
@@ -75,7 +76,7 @@ def from_feedparser_link(link):
 # entry's array of contents.
 #
 # For our purposes, content_type is "text/html" or "text/plain".
-def get_content(entry, content_type):
+def get_content(entry, content_type) -> str:
     if "content" not in entry:
         return None
     for content in entry.content:

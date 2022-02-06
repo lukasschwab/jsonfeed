@@ -1,4 +1,4 @@
-source := ${wildcard ./jsonfeed/*.py}
+source := ${wildcard ./jsonfeed/**/*.py}
 tests := ${wildcard tests/*.py}
 
 .PHONY: all lint test audit docs clean
