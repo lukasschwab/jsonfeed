@@ -77,6 +77,7 @@ See [the spec](https://jsonfeed.org/) for an overview of deprecated JSON Feed fi
   - [ ] Unit tests.
   - [ ] `str` and `repr` implementations for REPL usage.
   - [ ] Docs generation, linting, and auditing in CI (like for arxiv).
+  - [ ] Add docstrings.
 
 + Dictionaries maintain insertion order as of Python 3.6. `jsonfeed` takes advantage of this to retain the order suggested in the JSON Feed spec (namely, that `version` appear at the top of the JSON object). This order may not be enforced in earlier versions of Python, but out-of-order JSON Feeds are not invalid.
 
