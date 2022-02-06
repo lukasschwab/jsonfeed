@@ -1,3 +1,4 @@
+""".. include:: ../README.md"""
 import json
 from typing import List
 
