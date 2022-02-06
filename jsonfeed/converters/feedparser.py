@@ -1,4 +1,6 @@
-from jsonfeed import *
+from typing import List
+from jsonfeed import Feed, Author, Item, Attachment
+from feedparser import FeedParserDict
 
 # This file provides some bodge utils for converting feedparser-parsed ATOM or
 # RSS feeds into JSON feeds. It makes few guarantees about feed quality (for
@@ -19,7 +21,8 @@ from jsonfeed import *
 #   feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
 #   feed.toJSON()
 
-def from_feedparser_obj(feedparser_obj):
+
+def from_feedparser_obj(feedparser_obj: FeedParserDict) -> Feed:
     author = Author(
         name=feedparser_obj.feed.author,
     ) if "author" in feedparser_obj.feed else None
@@ -35,7 +38,8 @@ def from_feedparser_obj(feedparser_obj):
         items=items
     )
 
-def from_feedparser_entry(entry):
+
+def from_feedparser_entry(entry: FeedParserDict) -> Item:
     author = Author(name=entry.author) if "author" in entry else None
     return Item(
         id=entry.id if "id" in entry else None,
@@ -50,10 +54,15 @@ def from_feedparser_entry(entry):
         author=author,
         authors=[author] if author else None,
         tags=[t.term for t in entry.tags] if "tags" in entry else None,
-        attachments=[from_feedparser_link(l) for l in entry.links] if "links" in entry else None,
+        attachments=from_feedparser_links(entry.links) if "links" in entry else None,
     )
 
-def from_feedparser_link(link):
+
+def from_feedparser_links(links: List[FeedParserDict]) -> List[Attachment]:
+    return [from_feedparser_link(link) for link in links]
+
+
+def from_feedparser_link(link: FeedParserDict) -> Attachment:
     # TODO: extract the standard fieldnames.
     return Attachment(
         link.href,
@@ -63,11 +72,12 @@ def from_feedparser_link(link):
         None
     )
 
+
 # A helper for pulling a content body with a specific format out of a feedparser
 # entry's array of contents.
 #
 # For our purposes, content_type is "text/html" or "text/plain".
-def get_content(entry, content_type):
+def get_content(entry: FeedParserDict, content_type: str) -> str:
     if "content" not in entry:
         return None
     for content in entry.content:
