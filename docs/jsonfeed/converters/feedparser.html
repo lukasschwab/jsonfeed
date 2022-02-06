@@ -16,11 +16,13 @@
             <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
             <input id="togglestate" type="checkbox">
             <div>
-                        <a class="pdoc-button module-list-button" href="../converters.html">
+                        <a class="pdoc-button module-list-button" href="./../../">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
   <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-</svg>                            &nbsp;jsonfeed.converters</a>
+</svg>                            &nbsp;
+                            Module Index
+                        </a>
 
                         <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                                pattern=".+" required>
@@ -58,13 +60,14 @@
     <main class="pdoc">
             <section>
                     <h1 class="modulename">
-jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    </h1>
+<a href="./../../jsonfeed.html">jsonfeed</a><wbr>.converters<wbr>.feedparser    </h1>
 
                 
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">jsonfeed</span> <span class="kn">import</span> <span class="n">Feed</span><span class="p">,</span> <span class="n">Author</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Attachment</span>
+<span class="kn">from</span> <span class="nn">feedparser</span> <span class="kn">import</span> <span class="n">FeedParserDict</span>
 
 <span class="c1"># This file provides some bodge utils for converting feedparser-parsed ATOM or</span>
 <span class="c1"># RSS feeds into JSON feeds. It makes few guarantees about feed quality (for</span>
@@ -86,7 +89,7 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 <span class="c1">#   feed.toJSON()</span>
 
 
-<span class="k">def</span> <span class="nf">from_feedparser_obj</span><span class="p">(</span><span class="n">feedparser_obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Feed</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">from_feedparser_obj</span><span class="p">(</span><span class="n">feedparser_obj</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Feed</span><span class="p">:</span>
     <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">feedparser_obj</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
     <span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">feedparser_obj</span><span class="o">.</span><span class="n">feed</span> <span class="k">else</span> <span class="kc">None</span>
@@ -103,7 +106,7 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">from_feedparser_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">from_feedparser_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
     <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">author</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">Item</span><span class="p">(</span>
         <span class="nb">id</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
@@ -122,11 +125,11 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">from_feedparser_links</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Attachment</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">from_feedparser_links</span><span class="p">(</span><span class="n">links</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FeedParserDict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Attachment</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Attachment</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Attachment</span><span class="p">:</span>
     <span class="c1"># TODO: extract the standard fieldnames.</span>
     <span class="k">return</span> <span class="n">Attachment</span><span class="p">(</span>
         <span class="n">link</span><span class="o">.</span><span class="n">href</span><span class="p">,</span>
@@ -141,7 +144,7 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 <span class="c1"># entry&#39;s array of contents.</span>
 <span class="c1">#</span>
 <span class="c1"># For our purposes, content_type is &quot;text/html&quot; or &quot;text/plain&quot;.</span>
-<span class="k">def</span> <span class="nf">get_content</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">content_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_content</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">,</span> <span class="n">content_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="s2">&quot;content&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
@@ -158,12 +161,12 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 
         
             <span class="def">def</span>
-            <span class="name">from_feedparser_obj</span><span class="signature">(feedparser_obj) -&gt; <a href="../jsonfeed.html#Feed">jsonfeed.jsonfeed.Feed</a></span>:
+            <span class="name">from_feedparser_obj</span><span class="signature">(feedparser_obj: feedparser.util.FeedParserDict) -&gt; <a href="../../jsonfeed.html#Feed">jsonfeed.Feed</a></span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_obj</span><span class="p">(</span><span class="n">feedparser_obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Feed</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_obj</span><span class="p">(</span><span class="n">feedparser_obj</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Feed</span><span class="p">:</span>
     <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">feedparser_obj</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">author</span><span class="p">,</span>
     <span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">feedparser_obj</span><span class="o">.</span><span class="n">feed</span> <span class="k">else</span> <span class="kc">None</span>
@@ -190,12 +193,12 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 
         
             <span class="def">def</span>
-            <span class="name">from_feedparser_entry</span><span class="signature">(entry) -&gt; <a href="../jsonfeed.html#Item">jsonfeed.jsonfeed.Item</a></span>:
+            <span class="name">from_feedparser_entry</span><span class="signature">(entry: feedparser.util.FeedParserDict) -&gt; <a href="../../jsonfeed.html#Item">jsonfeed.Item</a></span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
     <span class="n">author</span> <span class="o">=</span> <span class="n">Author</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">author</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">Item</span><span class="p">(</span>
         <span class="nb">id</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
@@ -224,12 +227,14 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 
         
             <span class="def">def</span>
-            <span class="name">from_feedparser_links</span><span class="signature">(links) -&gt; List[<a href="../jsonfeed.html#Attachment">jsonfeed.jsonfeed.Attachment</a>]</span>:
+            <span class="name">from_feedparser_links</span><span class="signature">(
+    links: List[feedparser.util.FeedParserDict]
+) -&gt; List[<a href="../../jsonfeed.html#Attachment">jsonfeed.Attachment</a>]</span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_links</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Attachment</span><span class="p">]:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_links</span><span class="p">(</span><span class="n">links</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FeedParserDict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Attachment</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">]</span>
 </pre></div>
 
@@ -243,12 +248,12 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 
         
             <span class="def">def</span>
-            <span class="name">from_feedparser_link</span><span class="signature">(link) -&gt; <a href="../jsonfeed.html#Attachment">jsonfeed.jsonfeed.Attachment</a></span>:
+            <span class="name">from_feedparser_link</span><span class="signature">(link: feedparser.util.FeedParserDict) -&gt; <a href="../../jsonfeed.html#Attachment">jsonfeed.Attachment</a></span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Attachment</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">from_feedparser_link</span><span class="p">(</span><span class="n">link</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Attachment</span><span class="p">:</span>
     <span class="c1"># TODO: extract the standard fieldnames.</span>
     <span class="k">return</span> <span class="n">Attachment</span><span class="p">(</span>
         <span class="n">link</span><span class="o">.</span><span class="n">href</span><span class="p">,</span>
@@ -269,12 +274,12 @@ jsonfeed<wbr>.<a href="./../converters.html">converters</a><wbr>.feedparser    <
 
         
             <span class="def">def</span>
-            <span class="name">get_content</span><span class="signature">(entry, content_type) -&gt; str</span>:
+            <span class="name">get_content</span><span class="signature">(entry: feedparser.util.FeedParserDict, content_type: str) -&gt; str</span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">get_content</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">content_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">get_content</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="n">FeedParserDict</span><span class="p">,</span> <span class="n">content_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="s2">&quot;content&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>

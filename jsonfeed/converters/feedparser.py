@@ -1,5 +1,6 @@
 from typing import List
 from jsonfeed import Feed, Author, Item, Attachment
+from feedparser import FeedParserDict
 
 # This file provides some bodge utils for converting feedparser-parsed ATOM or
 # RSS feeds into JSON feeds. It makes few guarantees about feed quality (for
@@ -21,7 +22,7 @@ from jsonfeed import Feed, Author, Item, Attachment
 #   feed.toJSON()
 
 
-def from_feedparser_obj(feedparser_obj) -> Feed:
+def from_feedparser_obj(feedparser_obj: FeedParserDict) -> Feed:
     author = Author(
         name=feedparser_obj.feed.author,
     ) if "author" in feedparser_obj.feed else None
@@ -38,7 +39,7 @@ def from_feedparser_obj(feedparser_obj) -> Feed:
     )
 
 
-def from_feedparser_entry(entry) -> Item:
+def from_feedparser_entry(entry: FeedParserDict) -> Item:
     author = Author(name=entry.author) if "author" in entry else None
     return Item(
         id=entry.id if "id" in entry else None,
@@ -57,11 +58,11 @@ def from_feedparser_entry(entry) -> Item:
     )
 
 
-def from_feedparser_links(links) -> List[Attachment]:
+def from_feedparser_links(links: List[FeedParserDict]) -> List[Attachment]:
     return [from_feedparser_link(link) for link in links]
 
 
-def from_feedparser_link(link) -> Attachment:
+def from_feedparser_link(link: FeedParserDict) -> Attachment:
     # TODO: extract the standard fieldnames.
     return Attachment(
         link.href,
@@ -76,7 +77,7 @@ def from_feedparser_link(link) -> Attachment:
 # entry's array of contents.
 #
 # For our purposes, content_type is "text/html" or "text/plain".
-def get_content(entry, content_type) -> str:
+def get_content(entry: FeedParserDict, content_type: str) -> str:
     if "content" not in entry:
         return None
     for content in entry.content:

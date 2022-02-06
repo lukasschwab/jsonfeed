@@ -1,4 +1,4 @@
-source := ${wildcard ./jsonfeed/**/*.py}
+source := ${wildcard ./jsonfeed/*.py}
 tests := ${wildcard tests/*.py}
 
 .PHONY: all lint test audit docs clean
@@ -16,7 +16,7 @@ audit:
 
 docs: docs/index.html
 docs/index.html: $(source) README.md
-	pdoc --docformat "restructuredtext" ./jsonfeed/* -o docs
+	pdoc --docformat "restructuredtext" jsonfeed jsonfeed.converters.feedparser -o docs
 
 clean:
 	rm -rf build dist
