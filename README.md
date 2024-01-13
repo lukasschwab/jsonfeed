@@ -8,10 +8,16 @@ This package's constructor arguments and class variables exactly match the field
 
 ### Installation
 
-In this directory, run:
+Install this package with `pip`:
 
 ```shell
-$ pip install .
+$ pip install jsonfeed-util
+```
+
+In your Python code, include the line
+
+```python
+import jsonfeed
 ```
 
 ### Parsing a JSON feed
