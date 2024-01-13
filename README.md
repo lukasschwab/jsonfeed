@@ -1,4 +1,5 @@
-# jsonfeed [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+# jsonfeed
+[![PyPI](https://img.shields.io/pypi/v/jsonfeed-util)](https://pypi.org/project/jsonfeed-util/) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/) [![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/lukasschwab/jsonfeed/python-package.yml?branch=master)](https://github.com/lukasschwab/jsonfeed/actions?query=branch%3Amaster) [![Full package documentation](https://img.shields.io/badge/docs-hosted-brightgreen)](https://lukasschwab.me/jsonfeed/index.html)
 
 `jsonfeed` is a Python package for parsing and constructing [JSON Feeds](https://jsonfeed.org/version/1.1). It explicitly supports JSON Feed Version 1.1.
 
