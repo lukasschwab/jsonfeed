@@ -167,7 +167,7 @@ jsonfeed    </h1>
 <span class="c1"># Requesting a valid JSON feed!</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://arxiv-feeds.appspot.com/json/test&#39;</span><span class="p">)</span>
 <span class="c1"># Parse from raw text...</span>
-<span class="n">feed_from_text</span> <span class="o">=</span> <span class="n">jf</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">feed_from_text</span> <span class="o">=</span> <span class="n">jf</span><span class="o">.</span><span class="n">Feed</span><span class="o">.</span><span class="n">parse_string</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 <span class="c1"># ...or parse JSON separately.</span>
 <span class="n">r_json</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="n">feed_from_json</span> <span class="o">=</span> <span class="n">jf</span><span class="o">.</span><span class="n">Feed</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">r_json</span><span class="p">)</span>

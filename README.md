@@ -30,7 +30,7 @@ import requests
 # Requesting a valid JSON feed!
 r = requests.get('https://arxiv-feeds.appspot.com/json/test')
 # Parse from raw text...
-feed_from_text = jf.parse(r.text)
+feed_from_text = jf.Feed.parse_string(r.text)
 # ...or parse JSON separately.
 r_json = r.json()
 feed_from_json = jf.Feed.parse(r_json)
