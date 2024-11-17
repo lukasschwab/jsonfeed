@@ -14,7 +14,7 @@ jobs:
     - name: Check format with ruff
       uses: astral-sh/ruff-action@v1
       with:
-        args: --verbose
+        args: check --verbose
   lint:
     runs-on: ubuntu-latest
     steps:
