@@ -27,20 +27,27 @@ from typing import List
 from jsonfeed import Feed, Author, Item, Attachment
 from feedparser import FeedParserDict
 
+
 def from_feedparser_obj(feedparser_obj: FeedParserDict) -> Feed:
-    author = Author(
-        name=feedparser_obj.feed.author,
-    ) if "author" in feedparser_obj.feed else None
+    author = (
+        Author(
+            name=feedparser_obj.feed.author,
+        )
+        if "author" in feedparser_obj.feed
+        else None
+    )
     items = [from_feedparser_entry(e) for e in feedparser_obj.entries]
     return Feed(
         title=feedparser_obj.feed.title if "title" in feedparser_obj.feed else None,
         description=feedparser_obj.feed.info if "info" in feedparser_obj.feed else None,
         icon=feedparser_obj.feed.image.href if "image" in feedparser_obj.feed else None,
         favicon=feedparser_obj.feed.icon if "icon" in feedparser_obj.feed else None,
-        language=feedparser_obj.feed.language if "language" in feedparser_obj.feed else None,
+        language=feedparser_obj.feed.language
+        if "language" in feedparser_obj.feed
+        else None,
         author=author,
         authors=[author] if author else None,
-        items=items
+        items=items,
     )
 
 
@@ -70,11 +77,7 @@ def from_feedparser_links(links: List[FeedParserDict]) -> List[Attachment]:
 def from_feedparser_link(link: FeedParserDict) -> Attachment:
     # TODO: extract the standard fieldnames.
     return Attachment(
-        link.href,
-        link.type,
-        None,
-        link.length if "length" in link else None,
-        None
+        link.href, link.type, None, link.length if "length" in link else None, None
     )
 
 
