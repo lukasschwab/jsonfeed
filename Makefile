@@ -1,12 +1,15 @@
 source := ${wildcard ./jsonfeed/**/*.py}
 tests := ${wildcard tests/*.py}
 
-.PHONY: all lint test audit docs clean
+.PHONY: all format lint test audit docs clean
 
 all: lint test docs
 
+format: $(source) $(tests)
+	ruff format .
+
 lint: $(source) $(tests)
-	flake8 . --count --max-complexity=10 --statistics
+	ruff check .
 
 test: $(source) $(tests)
 	pytest
