@@ -60,7 +60,7 @@ print(feed.to_json()
 + `Item`
 + `Attachment`
 
-Note, `jsonfeed` is designed to be minimally restrictive. It does not require fields that are not required in the JSON Feed spec. This means it's possible to construct nonmeaningful JSON feeds (e.g. with this valid `Author` object: `{}`).
+Note, `jsonfeed` is designed to be minimally restrictive. It does not require fields that are not required in the JSON Feed spec. This means it's possible to construct non-meaningful JSON feeds (e.g. with this valid `Author` object: `{}`).
 
 ### Examples
 

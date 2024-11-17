@@ -1,26 +1,31 @@
+"""
+This file provides some bodge utils for converting feedparser-parsed ATOM or
+RSS feeds into JSON feeds. It makes few guarantees about feed quality (for
+example, it makes no effort to convert datetime formats) so it should probably
+not be used in any serious application.
+
+Example usage:
+
+```python
+import jsonfeed.converters as jfc
+import feedparser
+obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
+feed = jfc.from_feedparser_obj(obj)
+```
+
+Filter example:
+
+```python
+obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
+feed = jfc.from_feedparser_obj(obj)
+feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
+feed.to_json()
+```
+"""
+
 from typing import List
 from jsonfeed import Feed, Author, Item, Attachment
 from feedparser import FeedParserDict
-
-# This file provides some bodge utils for converting feedparser-parsed ATOM or
-# RSS feeds into JSON feeds. It makes few guarantees about feed quality (for
-# example, it makes no effort to convert datetime formats) so it should probably
-# not be used in any serious application.
-#
-# Example usage:
-#
-#   import jsonfeed.converters as jfc
-#   import feedparser
-#   obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
-#   feed = jfc.from_feedparser_obj(obj)
-#
-# Filter example:
-#
-#   obj = feedparser.parse('https://www.schneier.com/blog/atom.xml')
-#   feed = from_feedparser_obj(obj)
-#   feed.items = [e for e in feed.items if not e.tags or "squid" not in e.tags]
-#   feed.toJSON()
-
 
 def from_feedparser_obj(feedparser_obj: FeedParserDict) -> Feed:
     author = Author(
