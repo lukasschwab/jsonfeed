@@ -49,7 +49,7 @@ feed = jf.Feed("My Feed Title", authors=[me])
 item = jf.Item("some_item_id")
 feed.items.append(item)
 
-print(feed.toJSON())
+print(feed.to_json()
 ```
 
 `jsonfeed` exposes constructors for five classes of JSON feed objects:
