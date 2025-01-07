@@ -207,8 +207,8 @@ class Item:
         self.date_modified = date_modified
         self.author = author
         self.authors = authors
-        self.tags = tags or None
-        self.attachments = attachments or None
+        self.tags = tags or []
+        self.attachments = attachments or []
 
     @staticmethod
     def parse(maybeItem: dict) -> "Item":
