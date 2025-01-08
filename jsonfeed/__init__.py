@@ -30,8 +30,8 @@ class Feed:
         authors: List["Author"] = None,
         expired: bool = False,
         language: str = None,
-        hubs: List["Hub"] = [],
-        items: List["Item"] = [],
+        hubs: List["Hub"] | None = None,
+        items: List["Item"] | None = None,
     ):
         assert title
         self.title = title
@@ -46,8 +46,8 @@ class Feed:
         self.authors = authors
         self.expired = expired
         self.language = language
-        self.hubs = hubs
-        self.items = items
+        self.hubs = hubs or []
+        self.items = items or []
 
     @staticmethod
     def parse(maybeFeed: dict) -> "Feed":
@@ -191,8 +191,8 @@ class Item:
         date_modified: str = None,
         author=None,  # 1.1 deprecated; use authors.
         authors: List[Author] = None,
-        tags: List[str] = [],
-        attachments: List["Attachment"] = [],
+        tags: List[str] | None = None,
+        attachments: List["Attachment"] | None = None,
     ):
         self.id = id
         self.url = url
@@ -207,8 +207,8 @@ class Item:
         self.date_modified = date_modified
         self.author = author
         self.authors = authors
-        self.tags = tags
-        self.attachments = attachments
+        self.tags = tags or []
+        self.attachments = attachments or []
 
     @staticmethod
     def parse(maybeItem: dict) -> "Item":
