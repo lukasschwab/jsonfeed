@@ -1,6 +1,7 @@
 """
 Check package structure to avoid breaking changes.
 """
+
 import unittest
 
 

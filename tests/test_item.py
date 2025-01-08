@@ -1,21 +1,21 @@
 import unittest
 
-from jsonfeed import Item, Hub
+import jsonfeed as jf
 
 
-class TestFeed(unittest.TestCase):
-    def test_tags_memory_leak(self):
+class TestItem(unittest.TestCase):
+    def test_tags_reuse(self):
         """Regression test for a bug found in the Item class."""
-        item = Item(id=1)
+        item = jf.Item(id=1)
         item.tags.append("test")
 
-        feed2 = Item("test2")
+        feed2 = jf.Item("test2")
         self.assertEqual(feed2.tags, [])
 
-    def test_attachments_memory_leak(self):
+    def test_attachments_reuse(self):
         """Regression test for a bug found in the Item class."""
-        item = Item(id=1)
+        item = jf.Item(id=1)
         item.attachments.append("test")
 
-        feed2 = Item("test2")
+        feed2 = jf.Item("test2")
         self.assertEqual(feed2.attachments, [])
