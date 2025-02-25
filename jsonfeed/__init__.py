@@ -2,6 +2,8 @@
 
 import json
 
+from typing import Optional
+
 
 class ParseError(Exception):
     pass
@@ -19,19 +21,19 @@ class Feed:
     def __init__(
         self,
         title: str,
-        home_page_url: str = None,
-        feed_url: str = None,
-        description: str = None,
-        user_comment: str = None,
-        next_url: str = None,
-        icon: str = None,
-        favicon: str = None,
+        home_page_url: Optional[str] = None,
+        feed_url: Optional[str] = None,
+        description: Optional[str] = None,
+        user_comment: Optional[str] = None,
+        next_url: Optional[str] = None,
+        icon: Optional[str] = None,
+        favicon: Optional[str] = None,
         author=None,  # 1.1 deprecated; use authors.
-        authors: list["Author"] = None,
+        authors: Optional[list["Author"]] = None,
         expired: bool = False,
-        language: str = None,
-        hubs: list["Hub"] | None = None,
-        items: list["Item"] | None = None,
+        language: Optional[str] = None,
+        hubs: Optional[list["Hub"]] = None,
+        items: Optional[list["Item"]] = None,
     ):
         assert title
         self.title = title
@@ -120,7 +122,12 @@ class Feed:
 
 
 class Author:
-    def __init__(self, name: str = None, url: str = None, avatar: str = None):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        url: Optional[str] = None,
+        avatar: Optional[str] = None,
+    ):
         self.name = name
         self.url = url
         self.avatar = avatar
@@ -179,20 +186,20 @@ class Item:
     def __init__(
         self,
         id,
-        url: str = None,
-        external_url: str = None,
-        title: str = None,
-        content_html: str = None,
-        content_text: str = None,
-        summary: str = None,
-        image: str = None,
-        banner_image: str = None,
-        date_published: str = None,
-        date_modified: str = None,
+        url: Optional[str] = None,
+        external_url: Optional[str] = None,
+        title: Optional[str] = None,
+        content_html: Optional[str] = None,
+        content_text: Optional[str] = None,
+        summary: Optional[str] = None,
+        image: Optional[str] = None,
+        banner_image: Optional[str] = None,
+        date_published: Optional[str] = None,
+        date_modified: Optional[str] = None,
         author=None,  # 1.1 deprecated; use authors.
-        authors: list[Author] = None,
-        tags: list[str] | None = None,
-        attachments: list["Attachment"] | None = None,
+        authors: Optional[list[Author]] = None,
+        tags: Optional[list[str]] = None,
+        attachments: Optional[list["Attachment"]] = None,
     ):
         self.id = id
         self.url = url
@@ -278,9 +285,9 @@ class Attachment:
         self,
         url: str,
         mime_type: str,
-        title: str = None,
-        size_in_bytes: int = None,
-        duration_in_seconds: int = None,
+        title: Optional[str] = None,
+        size_in_bytes: Optional[int] = None,
+        duration_in_seconds: Optional[int] = None,
     ):
         self.url = url
         self.mime_type = mime_type
