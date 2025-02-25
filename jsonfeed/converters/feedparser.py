@@ -23,7 +23,6 @@ feed.to_json()
 ```
 """
 
-from typing import List
 from jsonfeed import Feed, Author, Item, Attachment
 from feedparser import FeedParserDict
 
