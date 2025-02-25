@@ -28,11 +28,11 @@ class Feed:
         icon: str = None,
         favicon: str = None,
         author=None,  # 1.1 deprecated; use authors.
-        authors: List["Author"] = None,
+        authors: list["Author"] = None,
         expired: bool = False,
         language: str = None,
-        hubs: List["Hub"] | None = None,
-        items: List["Item"] | None = None,
+        hubs: list["Hub"] | None = None,
+        items: list["Item"] | None = None,
     ):
         assert title
         self.title = title
@@ -191,9 +191,9 @@ class Item:
         date_published: str = None,
         date_modified: str = None,
         author=None,  # 1.1 deprecated; use authors.
-        authors: List[Author] = None,
-        tags: List[str] | None = None,
-        attachments: List["Attachment"] | None = None,
+        authors: list[Author] = None,
+        tags: list[str] | None = None,
+        attachments: list["Attachment"] | None = None,
     ):
         self.id = id
         self.url = url

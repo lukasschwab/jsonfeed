@@ -70,7 +70,7 @@ def from_feedparser_entry(entry: FeedParserDict) -> Item:
     )
 
 
-def from_feedparser_links(links: List[FeedParserDict]) -> List[Attachment]:
+def from_feedparser_links(links: list[FeedParserDict]) -> list[Attachment]:
     return [from_feedparser_link(link) for link in links]
 
 
